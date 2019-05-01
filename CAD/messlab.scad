@@ -100,10 +100,43 @@ module lcd_rounded(t) {
     }
 }
 
+module raspi_rounded(t) {
+    difference() {
+        union() {
+            roundCornersCube(36,75,2,3, center=true);
+            translate([-15,25,1])  linear_extrude(1) text(t, size=8, halign="true", valign="true", font="Liberation Sans:style=Bold");
+        }
+        translate([-1,11,0]) cube([14,17,2], center=true);
+        translate([0,-15,0]) cube([16,35,2], center=true);
+    }
+}
+
+module raspi_holder(t) {
+    difference() {
+        roundCornersCube(68,22,10,2, center=true);
+        translate([0,0,2]) cube([68,18,8], center=true);
+        translate([29,11,1]) rotate([90,0,0]) cylinder(d=3,h=22);
+        translate([-29,11,1]) rotate([90,0,0]) cylinder(d=3,h=22);
+    }
+}
+
+module sdr_rounded(t) {
+    difference() {
+        union() {
+            roundCornersCube(36,36,2,3, center=true);
+            translate([-12,5,1])  linear_extrude(1) text(t, size=8, halign="true", valign="true", font="Liberation Sans:style=Bold");
+        }
+        translate([0,-5,-1]) cylinder(d=12, h=3);
+    }
+}
+
 ps_rounded(text1="DPS5005", text2="50V / 5A");
-!ps_rounded(text1="DPS3020", text2="30V / 20A");
+ps_rounded(text1="DPS3020", text2="30V / 20A");
 lcd_rounded("RF-tech");
 type_rounded("RasPi MessLab");
 dscope_rounded();
 dslogic_rounded();
 roundedBox(74,101,16,4,"DSCope");
+raspi_rounded("RasPi");
+raspi_holder();
+!sdr_rounded("SDR");
